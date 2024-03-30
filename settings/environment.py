@@ -6,7 +6,7 @@ from pydantic.v1 import BaseSettings
 class Environment(BaseSettings):
     BOT_KEY: str
     REDIS_HOST: str
-    REDIS_PORT: str
+    REDIS_PORT: int
     REDIS_PASSWORD: str
 
 
