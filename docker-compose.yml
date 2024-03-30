@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+
+  redis-stack:
+    image: redis/redis-stack:latest
+    env_file:
+      - .env
+    ports:
+      - "8001:8001" # redis_local-insight
+      - "${REDIS_PORT}:${REDIS_PORT}" # redis_local
+    volumes:
+      - ./redis_local/data:/data # redis_local dumps and backups
+      - ./redis_local/redis.conf:/redis-stack.conf # redis_local configuration
+    environment:
+      - REDIS_ARGS=--requirepass ${REDIS_PASSWORD} --port ${REDIS_PORT}
